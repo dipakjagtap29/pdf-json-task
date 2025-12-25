@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import jsPDF from "jspdf";
 
-/* ---------- Types ---------- */
 interface Profile {
   name: string;
   role: string;
@@ -9,7 +8,6 @@ interface Profile {
   skills: string[];
 }
 
-/* ---------- Constants ---------- */
 const STORAGE_KEY = "profileData";
 
 const INITIAL_JSON: Profile = {
@@ -19,7 +17,6 @@ const INITIAL_JSON: Profile = {
   skills: ["React", "Angular", "TypeScript"]
 };
 
-/* ---------- Component ---------- */
 export default function ProfileEditor() {
   const [form, setForm] = useState({
     name: "",
@@ -30,7 +27,6 @@ export default function ProfileEditor() {
 
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
-  /* ---------- Load JSON → localStorage → State ---------- */
   useEffect(() => {
     if (!localStorage.getItem(STORAGE_KEY)) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_JSON));
@@ -48,7 +44,6 @@ export default function ProfileEditor() {
     });
   }, []);
 
-  /* ---------- Handlers ---------- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm(prev => ({ ...prev, [name]: value }));
@@ -83,7 +78,6 @@ export default function ProfileEditor() {
     setPdfUrl(url);
   };
 
-  /* ---------- UI ---------- */
   return (
     <div
       style={{
@@ -93,7 +87,6 @@ export default function ProfileEditor() {
         overflow: "hidden"
       }}
     >
-      {/* ================= LEFT: EDITOR (50%) ================= */}
       <div
         style={{
           width: "50%",
@@ -146,7 +139,6 @@ export default function ProfileEditor() {
         </button>
       </div>
 
-      {/* ================= RIGHT: PDF VIEWER (50%) ================= */}
       <div
         style={{
           width: "50%",
